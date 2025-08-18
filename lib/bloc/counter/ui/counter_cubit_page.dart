@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_state_manage_sample/bloc/counter/bloc/counter_bloc.dart';
+import 'package:flutter_state_manage_sample/bloc/counter/cubit/counter_cubit.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
@@ -11,17 +11,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: CounterPage());
+    return MaterialApp(home: CounterCubitPage());
   }
 }
 
-class CounterPage extends StatelessWidget {
-  const CounterPage({super.key});
+class CounterCubitPage extends StatelessWidget {
+  const CounterCubitPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CounterBloc(),
+      create: (context) => CounterCubit(),
       child: CounterView(),
     );
   }
@@ -39,14 +39,14 @@ class CounterView extends StatelessWidget {
     );
   }
 
-  AppBar _buildAppBar() => AppBar(title: Text('Counter Bloc'));
+  AppBar _buildAppBar() => AppBar(title: Text('Counter Cubit'));
 
   Widget _buildCounterText() {
     return Center(
-      child: BlocBuilder<CounterBloc, CounterState>(
+      child: BlocBuilder<CounterCubit, int>(
         builder: (context, state) {
           return Text(
-            '${state.count}',
+            '$state',
             style: Theme.of(context).textTheme.headlineMedium,
           );
         },
@@ -72,10 +72,10 @@ class CounterView extends StatelessWidget {
   }
 
   void _onIncrementPressed(BuildContext context) {
-    context.read<CounterBloc>().add(CounterIncremented());
+    context.read<CounterCubit>().increment();
   }
 
   void _onDecrementPressed(BuildContext context) {
-    context.read<CounterBloc>().add(CounterDecremented());
+    context.read<CounterCubit>().decrement();
   }
 }
