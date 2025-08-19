@@ -1,26 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cart.dart';
-
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
-
-Cart _$CartFromJson(Map<String, dynamic> json) => Cart(
-  products: (json['products'] as List<dynamic>)
-      .map((e) => Product.fromJson(e as Map<String, dynamic>))
-      .toList(),
-);
-
-Map<String, dynamic> _$CartToJson(Cart instance) => <String, dynamic>{
-  'products': instance.products,
-};
+part of 'cart_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$activeCartHash() => r'dd11ff05f0232a482175314b43f5734e7d8a6e6f';
+String _$activeCartHash() => r'46739a65fd1087d203a0ceabc68124c5309884d8';
 
 /// See also [ActiveCart].
 @ProviderFor(ActiveCart)

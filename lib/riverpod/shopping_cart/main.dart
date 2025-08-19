@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_state_manage_sample/riverpod/shopping_cart/cart.dart';
-import 'package:flutter_state_manage_sample/riverpod/shopping_cart/product.dart';
+import 'package:flutter_state_manage_sample/riverpod/shopping_cart/models/product.dart';
+import 'package:flutter_state_manage_sample/riverpod/shopping_cart/providers/cart_provider.dart';
+import 'package:flutter_state_manage_sample/riverpod/shopping_cart/providers/product_provider.dart';
 
 void main(List<String> args) {
   runApp(const ProviderScope(child: App()));
@@ -23,8 +24,14 @@ class StorePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(title: const Text('Store')),
-      body: _buildProductList(ref),
-      bottomSheet: _buildCart(ref),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Positioned.fill(child: _buildProductList(ref)),
+            Positioned(bottom: 0, left: 8, right: 8, child: _buildCart(ref)),
+          ],
+        ),
+      ),
     );
   }
 
@@ -46,7 +53,10 @@ class StorePage extends ConsumerWidget {
     return ListTile(
       leading: AspectRatio(aspectRatio: 1, child: Image.network(product.image)),
       title: Text(product.title),
-      subtitle: Text(product.price.toString()),
+      subtitle: Text(
+        '\$${product.price}',
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+      ),
       trailing: IconButton(
         onPressed: () {
           ref.read(activeCartProvider.notifier).addProduct(product);
@@ -59,12 +69,10 @@ class StorePage extends ConsumerWidget {
   Widget _buildCart(WidgetRef ref) {
     final cart = ref.watch(activeCartProvider);
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 8),
+      margin: EdgeInsets.zero,
+      color: Colors.grey[200],
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-        ),
+        borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
