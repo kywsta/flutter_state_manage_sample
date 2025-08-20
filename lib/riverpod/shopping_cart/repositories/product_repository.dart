@@ -26,7 +26,7 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 }
 
-@riverpod
+@Riverpod(dependencies: [])
 ProductRepository productRepository(Ref ref) {
   return ProductRepositoryImpl();
 }
