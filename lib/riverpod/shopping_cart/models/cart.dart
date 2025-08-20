@@ -1,6 +1,5 @@
 import 'package:flutter_state_manage_sample/riverpod/shopping_cart/models/product.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cart.g.dart';
 
@@ -17,4 +16,3 @@ class Cart {
     return Cart(products: products ?? this.products);
   }
 }
-

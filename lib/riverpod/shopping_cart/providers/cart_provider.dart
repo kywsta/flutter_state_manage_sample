@@ -6,7 +6,6 @@ part 'cart_provider.g.dart';
 
 @riverpod
 class ActiveCart extends _$ActiveCart {
-
   @override
   Cart build() {
     return Cart(products: []);
@@ -17,7 +16,9 @@ class ActiveCart extends _$ActiveCart {
   }
 
   void removeProduct(Product product) {
-    state = state.copyWith(products: state.products.where((p) => p.id != product.id).toList());
+    state = state.copyWith(
+      products: state.products.where((p) => p.id != product.id).toList(),
+    );
   }
 
   void checkout() {
